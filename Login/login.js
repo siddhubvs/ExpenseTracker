@@ -11,11 +11,15 @@ async function login(e){
 
     const response=await axios.post("http://localhost:4000/user/login",loginDetails);
 
-    document.body.innerHTML+=`<br><div style="color:red;text-align:center;">${response}</div`;
+    if(response.status===200)
+    alert(response.data.message);
+
+    
     
     }
     catch(err){
-        document.body.innerHTML+=`<br><div style="color:red;text-align:center;">${err}</div`;
+        
+        document.body.innerHTML+=`<br><div style="color:red;text-align:center;">${err.message}</div`;
     }
 
 }
