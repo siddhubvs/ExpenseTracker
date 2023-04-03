@@ -8,20 +8,18 @@
 </head>
 <body>
     <div style="text-align: center;">
-    <h1>Signup form</h1>
-    <form onsubmit="signup(event)">
-        <label>Enter your name: </label>
-        <input type="text" id="name" name="name" required><br><br>
+    <h1>Login</h1>
+    <form onsubmit="login(event)">
         <label>Enter your email: </label>
         <input type="text" id="email" name="email" required><br><br>
         <label>Enter your password: </label>
         <input type="password" id="password" name="email" required><br><br>
-        <button type="submit">Signup</button>
+        <button type="submit">Login</button>
     </form>
     <br><br>
-    <a href="./Login/login.html">Existing User - Login</a>
+    <a href="../Signup/signup.html">New User- Signup now</a>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="./signup.js"></script>
+    <script src="./login.js"></script>
 </body>
 </html>
