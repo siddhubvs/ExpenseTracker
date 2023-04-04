@@ -14,7 +14,10 @@ async function login(e){
     if(response.status===200)
     alert(response.data.message);
 
-    
+
+    else if(response.status===401)
+    //document.body.innerHTML+=`<br><div style="color:pink;text-align:center;">${response.data.message}</div`;
+    alert(response.data.message);
     
     }
     catch(err){
