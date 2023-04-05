@@ -42,7 +42,7 @@ function showNewUser(obj){
         if(confirm('Are you sure to delete')){
                 var li=e.target.parentElement;
                 li.remove();
-                const response=await axios.delete(`http://localhost:4000/expense/delete/${obj.id}`,obj,/*{headers:{"Authorisation":token}}*/);
+                const response=await axios.delete(`http://localhost:4000/expense/delete/${obj.id}`,{headers:{"Authorisation":token}});
                 console.log(response);
         }
         }

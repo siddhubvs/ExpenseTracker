@@ -23,8 +23,8 @@ exports.getExpense = async(req,res,next)=>{
 exports.deleteExpense = async(req,res,next)=>{
     try{
     const expenseid=req.params.id;
-    const response=await expense.destroy({where:{id:expenseid}})
-    res.status(200).json({message:'Successfully destroyed'})
+    const response=await expense.destroy({where:{id:expenseid,userId:req.user.id}})
+    res.status(200).json({message:response})
     }catch(err){
     console.log(err);
     }
