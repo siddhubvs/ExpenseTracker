@@ -8,17 +8,13 @@ const cors=require('cors')
 
 const sequelize=require('./utils/database')
 
-const user=require('./model/user');
+const User=require('./model/user');
 
-const expense=require('./model/expense');
+const Expense=require('./model/expense');
 
 const userRoutes=require('./routes/user')
 
 const expenseRoutes=require('./routes/expense');
-
-user.sync();
-
-expense.sync();
 
 app.use(cors());
 
@@ -27,6 +23,12 @@ app.use(bodyparser.json({extended:false}))
 app.use('/user',userRoutes);
 
 app.use('/expense',expenseRoutes);
+
+
+User.hasMany(Expense);
+
+Expense.belongsTo(User);
+
 sequelize.sync()
 .then(result=>{
     app.listen(4000)

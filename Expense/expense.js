@@ -7,15 +7,16 @@ async function expense(event){
         category:event.target.category.value,
     }
 
-    const response=await axios.post(`http://localhost:4000/expense/add`,expenseDetails);
+    const response=await axios.post(`http://localhost:4000/expense/add`,expenseDetails,{headers:{"Authorisation":token}});
     
     showNewUser(response.data.NewExpenseDetail);
 
 }
-
+const token=localStorage.getItem('token');
 window.addEventListener('DOMContentLoaded',async()=>{
     try{
-    const response=await axios.get('http://localhost:4000/expense')
+   
+    const response=await axios.get('http://localhost:4000/expense',{headers:{"Authorisation":token}})
     console.log(response);
     for(var i=0;i<response.data.AllExpenseDetail.length;i++){
             showNewUser(response.data.AllExpenseDetail[i]);
@@ -41,7 +42,7 @@ function showNewUser(obj){
         if(confirm('Are you sure to delete')){
                 var li=e.target.parentElement;
                 li.remove();
-                const response=await axios.delete(`http://localhost:4000/expense/delete/${obj.id}`,obj);
+                const response=await axios.delete(`http://localhost:4000/expense/delete/${obj.id}`,obj,/*{headers:{"Authorisation":token}}*/);
                 console.log(response);
         }
         }

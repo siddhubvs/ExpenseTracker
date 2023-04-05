@@ -2,6 +2,8 @@ const user=require('../model/user');
 
 const bcrypt=require('bcrypt');
 
+const jwt=require('jsonwebtoken');
+
 function isStringInvalid(str){
     if(str==undefined||str.length===0)
     return true;
@@ -24,6 +26,10 @@ exports.signup= async(req,res,next)=>{
     res.status(500).json(err)
     }
 }
+
+function tokengenerator(id,name){
+    return jwt.sign({userId:id,name:name},'6EA8777E4552DBA715A5EE1D144A2');
+}
 exports.login = async(req,res,next)=>{
     const {email,password}=req.body;
     if(isStringInvalid(email) || isStringInvalid(password)){
@@ -37,7 +43,7 @@ exports.login = async(req,res,next)=>{
             throw new Error('Something went wrong');
         }
         if(result===true)
-        res.status(200).json({success:true,message:'User login successful'});
+        res.status(200).json({success:true,message:'User login successful',token:tokengenerator(user[0].id,user[0].name)});
         else
         return res.status(401).json({success:false,message:'User not authorized'});
         })

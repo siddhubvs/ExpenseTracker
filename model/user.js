@@ -18,4 +18,6 @@ const user=sequelize.define('user',{
     password:Sequelize.STRING
 })
 
+
+
 module.exports=user;
