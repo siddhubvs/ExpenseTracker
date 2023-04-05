@@ -1,3 +1,4 @@
+
 async function expense(event){
     event.preventDefault();
    
@@ -11,6 +12,38 @@ async function expense(event){
     
     showNewUser(response.data.NewExpenseDetail);
 
+}
+
+var premium=document.getElementById('premium');
+
+premium.onclick=async(e)=>{
+    
+    const token=localStorage.getItem('token');
+    const response=await axios.get('http://localhost:4000/premium/purchase',{headers:{"Authorisation":token}});
+    var options={
+        "key":response.data.key_id,
+        "order_id":response.data.order.id,
+        "handler": async function(response){
+            await axios.post('http://localhost:4000/premium/updatetransactionstatus',{
+               order_id:options.order_id,
+               payment_id:response.razorpay_payment_id,
+
+            },{headers:{"Authorisation":token}})
+            alert('You are a premium user');
+        }
+    }
+    const rzp1=new Razorpay(options);
+    rzp1.open();
+    e.preventDefault();
+    rzp1.on('payment.failed',async function(response){
+        console.log(response);
+        alert('Something went wrong');
+        await axios.post('http://localhost:4000/premium/failtransaction',{
+               order_id:options.order_id,
+            },{headers:{"Authorisation":token}})
+        
+    })
+    
 }
 const token=localStorage.getItem('token');
 window.addEventListener('DOMContentLoaded',async()=>{
