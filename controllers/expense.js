@@ -17,9 +17,9 @@ exports.addExpense = async(req,res,next)=>{
         if(isStringInvalid(amount) || isStringInvalid(description) || isStringInvalid(category)){
             return res.status(400).json({err:"Bad paramters : Something is missing"})
         }
-        const expense=await expense.create({amount,description,category,userId:req.user.id},{transaction:t});
+        const data=await expense.create({amount,description,category,userId:req.user.id},{transaction:t});
         const totalExpense=Number(req.user.totalExpense)+Number(amount);
-        await User.update({totalExpense:totalExpense},{where:{id:req.user.id},transaction:t},);
+        await User.update({totalExpense:totalExpense},{where:{id:req.user.id},transaction:t});
         await t.commit();
         res.status(201).json({NewExpenseDetail:data});
     }catch(err){
@@ -38,11 +38,17 @@ exports.getExpense = async(req,res,next)=>{
 }
 
 exports.deleteExpense = async(req,res,next)=>{
+    const t=await sequelize.transaction();
     try{
     const expenseid=req.params.id;
-    const response=await expense.destroy({where:{id:expenseid,userId:req.user.id}})
+    const Expense=await expense.findOne({where:{id:expenseid}});
+    const totalExpense=Number(req.user.totalExpense)-Number(Expense.amount);
+    await User.update({totalExpense:totalExpense},{where:{id:req.user.id},transaction:t})
+    const response=await expense.destroy({where:{id:expenseid,userId:req.user.id},transaction:t})
+    await t.commit();
     res.status(200).json({message:response})
     }catch(err){
+    await t.rollback();
     console.log(err);
     }
 }
