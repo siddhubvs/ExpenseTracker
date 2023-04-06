@@ -141,6 +141,7 @@ function showNewUser(obj){
                 var li=e.target.parentElement;
                 li.remove();
                 const token=localStorage.getItem('token');
+                const amount=obj.amount;
                 const response=await axios.delete(`http://localhost:4000/expense/delete/${obj.id}`,{headers:{"Authorisation":token}});
                 console.log(response);
         }
