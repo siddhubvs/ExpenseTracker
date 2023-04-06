@@ -27,7 +27,7 @@ function isStringInvalid(str){
     }
 }
 
-function tokengenerator(id,name,isPremiumUser){
+const tokengenerator=function(id,name,isPremiumUser){
     return jwt.sign({userId:id,name:name,isPremiumUser},'6EA8777E4552DBA715A5EE1D144A2');
 }
 async function login(req,res,next){

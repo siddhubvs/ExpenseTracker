@@ -16,7 +16,11 @@ const user=sequelize.define('user',{
         unique:true,
     },
     password:Sequelize.STRING,
-    isPremiumUser:Sequelize.BOOLEAN
+    isPremiumUser:Sequelize.BOOLEAN,
+    totalExpense:{
+        type:Sequelize.INTEGER,
+        defaultValue: 0,
+    }
 })
 
 

@@ -56,7 +56,7 @@ function showLeaderBoard(obj){
     var li=document.createElement('li');
     li.style.fontSize='20px';
     li.style.textAlign='center';
-    li.textContent=' '+'Name'+' - '+obj.name+' - '+'Total Expense'+' - ' + obj.TotalExpense;
+    li.textContent=' '+'Name'+' - '+obj.name+' - '+'Total Expense'+' - ' + obj.totalExpense;
     
     var div=document.getElementById("tracker")
     var h1=document.getElementById("end");
@@ -82,7 +82,7 @@ premium.onclick=async(e)=>{
         "key":response.data.key_id,
         "order_id":response.data.order.id,
         "handler": async function(response){
-        const res=await axios.post('http://localhost:4000/premium/updatetransactionstatus',{
+        const res=await axios.post('http://localhost:4000/purchase/updatetransactionstatus',{
                order_id:options.order_id,
                payment_id:response.razorpay_payment_id,
             },{headers:{"Authorisation":token}})
