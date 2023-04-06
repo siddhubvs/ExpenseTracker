@@ -2,6 +2,8 @@ const Order=require('../model/order');
 
 const Razorpay=require('razorpay');
 
+const userController=require('./user');
+
 exports.purchasepremium=async(req,res)=>{
     try{
     var rzp=new Razorpay({
@@ -25,12 +27,13 @@ exports.purchasepremium=async(req,res)=>{
 }
 exports.updateTransactionStatus=async(req,res)=>{
     try{
+    userId=req.user.id;
     const{order_id,payment_id}=req.body;
     const order=await Order.findOne({where:{orderid:order_id}})
     const promise1=order.update({paymentid:payment_id,status:'successful'})
     const promise2=req.user.update({isPremiumUser:true})
     Promise.all([promise1,promise2]).then(()=>{
-        return res.status(201).json({success:true,message:'Transaction successful'})
+        return res.status(201).json({success:true,message:'Transaction successful',token:userController.tokengenerator(userId,undefined,true)})
     })           
     .catch((err)=>{
     throw new Error(err);

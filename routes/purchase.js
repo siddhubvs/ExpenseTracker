@@ -6,7 +6,7 @@ const purchaseController=require('../controllers/purchase');
 
 const auth=require('../middleware/auth')
 
-router.get('/purchase',auth.authenticate,purchaseController.purchasepremium);
+router.get('/purchasePremium',auth.authenticate,purchaseController.purchasepremium);
 
 router.post('/updatetransactionstatus',auth.authenticate,purchaseController.updateTransactionStatus);
 

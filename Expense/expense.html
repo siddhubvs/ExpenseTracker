@@ -11,21 +11,23 @@
     <h1>Expense</h1>
     <form onsubmit="expense(event)">
         <label>Enter expense amount: </label>
-        <input type="text" id="amount" name="amount" required><br><br>
+        <input type="text" id="amount" name="amount" required>
         <label>Enter description: </label>
-        <input type="text" id="description" name="description" required><br><br>
+        <input type="text" id="description" name="description" required>
         <label>Select category: </label>
         <select id="category" name="category" required>
             <option value="none" selected disabled hidden>Select an Option</option>
             <option>Fuel</option>
             <option>Food</option>
             <option>Household</option>
-          </select><br><br>
+          </select>
         <button type="submit">Add Expense</button>
     </form>
     <br>
     <button name="premium" id="premium">Buy Premium</button>
-    <br><br>
+    <br>
+    <h2 id="Show expenses">Expenses</h1>
+    <h1 id="leaderboard"></h1>
     <h1 id="end"></h1>
     </div>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

@@ -10,7 +10,7 @@ function isStringInvalid(str){
     else
     return false;
 }
-exports.signup= async(req,res,next)=>{
+   async function signup(req,res,next){
     const {name,email,password}=req.body;
 
     if(isStringInvalid(name) || isStringInvalid(email) || isStringInvalid(password)){
@@ -27,10 +27,10 @@ exports.signup= async(req,res,next)=>{
     }
 }
 
-function tokengenerator(id,name){
-    return jwt.sign({userId:id,name:name},'6EA8777E4552DBA715A5EE1D144A2');
+function tokengenerator(id,name,isPremiumUser){
+    return jwt.sign({userId:id,name:name,isPremiumUser},'6EA8777E4552DBA715A5EE1D144A2');
 }
-exports.login = async(req,res,next)=>{
+async function login(req,res,next){
     const {email,password}=req.body;
     if(isStringInvalid(email) || isStringInvalid(password)){
         return res.status(400).json({err:"Email or password is missing"})
@@ -43,7 +43,7 @@ exports.login = async(req,res,next)=>{
             throw new Error('Something went wrong');
         }
         if(result===true)
-        res.status(200).json({success:true,message:'User login successful',token:tokengenerator(user[0].id,user[0].name)});
+        res.status(200).json({success:true,message:'User login successful',token:tokengenerator(user[0].id,user[0].name,user[0].isPremiumUser)});
         else
         return res.status(401).json({success:false,message:'User not authorized'});
         })
@@ -53,4 +53,8 @@ exports.login = async(req,res,next)=>{
         }
         }).catch(error=>{res.status(500).json({message:error})})
 }
-    
+module.exports={
+    signup,
+    tokengenerator,
+    login
+}    
