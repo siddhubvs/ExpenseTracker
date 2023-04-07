@@ -14,6 +14,8 @@ const Expense=require('./model/expense');
 
 const Order=require('./model/order');
 
+const ForgotPasswordRequests=require('./model/ForgotPasswordRequests');
+
 const userRoutes=require('./routes/user')
 
 const expenseRoutes=require('./routes/expense');
@@ -44,6 +46,10 @@ Expense.belongsTo(User);
 User.hasMany(Order);
 
 Order.belongsTo(User);
+
+User.hasMany(ForgotPasswordRequests);
+
+ForgotPasswordRequests.belongsTo(User);
 
 sequelize.sync()
 .then(result=>{
