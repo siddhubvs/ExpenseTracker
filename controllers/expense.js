@@ -30,8 +30,26 @@ exports.addExpense = async(req,res,next)=>{
 
 exports.getExpense = async(req,res,next)=>{
     try{
-        const data= await expense.findAll({where:{userId:req.user.id}});
-        res.status(200).json({AllExpenseDetail:data});
+        const page=1;
+        let totalItems=await expense.count();
+        console.log(totalItems);
+        const ITEMS_PER_PAGE=4;
+        await expense.findAll({where:{userId:req.user.id}},{
+            offset:(page-1)*ITEMS_PER_PAGE,
+            limit:ITEMS_PER_PAGE
+        }).then((expense)=>{
+            res.status(200).json({
+                AllExpenseDetail:expense,
+                currentPage:page,
+                hasNextPage:ITEMS_PER_PAGE*page<totalItems,
+                nextPage:page+1,
+                hasPreviousPage:page-1,
+                previousPage:page-1,
+                lastPage:Math.ceil(totalItems/ITEMS_PER_PAGE)
+
+            })
+        });
+        
     }catch(err){
         res.status(500).json(err);
     }

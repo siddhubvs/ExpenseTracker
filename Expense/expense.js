@@ -31,7 +31,7 @@ function premiumUser(){
     var download=document.createElement('button');
     download.textContent='Download Expenses';
     div.width='100%';
-    var showExpenses=document.getElementById('Show expenses');
+    var showExpenses=document.getElementById('pagination');
     div.insertBefore(p,showExpenses);
     div.insertBefore(leaderboard,showExpenses);  
     div.insertBefore(download,showExpenses);
@@ -118,11 +118,12 @@ window.addEventListener('DOMContentLoaded',async()=>{
     if(ispremiumuser){
         premiumUser();
     }
-    const response=await axios.get('http://localhost:4000/expense',{headers:{"Authorisation":token}})
-    console.log(response);
+    const page=1;
+    const response=await axios.get(`http://localhost:4000/expense?page=${page}`,{headers:{"Authorisation":token}})
     for(var i=0;i<response.data.AllExpenseDetail.length;i++){
-            showNewUser(response.data.AllExpenseDetail[i]);
+        showNewUser(response.data.AllExpenseDetail[i]);
     }
+    showPagination(response.data);
     }catch(err){
         console.log(err);
     }
@@ -159,4 +160,41 @@ function showNewUser(obj){
     var div=document.getElementById("tracker")
     var h1=document.getElementById("leaderboard");
     div.insertBefore(li,h1)
+}
+var pagination=document.getElementById('pagination'); 
+function showPagination({
+    currentPage,
+    hasNextPage,
+    nextPage,
+    hasPreviousPage,
+    previousPage,
+    lastPage
+}){
+     if(hasPreviousPage){
+        const btn1=document.createElement('button');
+        btn1.innerHTML=previousPage
+        btn1.addEventListener('click',()=>GetExtendedCampaignOverviewSender(previousPage))
+        pagination.appendChild(btn1);
+    }
+    const btn2=document.createElement('button');
+    btn1.innerHTML=currentPage,
+    btn1.addEventListener('click',()=>GetExtendedCampaignOverviewSender(currentPage))
+    pagination.appendChild(btn2);
+
+    if(hasNextPage){
+        const btn3=document.createElement('button');
+        btn3.innerHTML=nextPage
+        btn1.addEventListener('click',()=>GetExtendedCampaignOverviewSender(nextPage))
+        pagination.appendChild(btn3);
+    }
+}
+
+async function getProducts(page){
+    try{
+    const response=await axios.get(`http://localhost:4000/expense?page=${page}`,{headers:{"Authorisation":token}})
+    showNewUser(response.data.AllExpenseDetail);
+    showPagination(response.data);
+    }catch(Err){
+        console.log(Err);
+    }
 }
