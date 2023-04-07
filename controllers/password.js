@@ -73,7 +73,7 @@ ForgotPasswordRequests.findOne({where:{id}}).then(forgotpasswordrequest => {
                                         <button>reset password</button>
                                     </form>
                                 </html>`
-                                )
+                        )
             res.end()
 
         }

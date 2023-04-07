@@ -28,10 +28,14 @@ function premiumUser(){
     var leaderboard=document.createElement('button');
     leaderboard.textContent='Show Leaderboard';
     leaderboard.width='100%';
+    var download=document.createElement('button');
+    download.textContent='Download Expenses';
+    div.width='100%';
     var showExpenses=document.getElementById('Show expenses');
     div.insertBefore(p,showExpenses);
     div.insertBefore(leaderboard,showExpenses);  
-
+    div.insertBefore(download,showExpenses);
+    
     leaderboard.onclick=async(e)=>{
         var leader=document.createElement('h2');
         leader.textContent='LeaderBoard';

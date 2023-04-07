@@ -7,6 +7,7 @@ exports.showLeaderBoard=async(req,res)=>{
     try{
     const leaderboardofUsers=await User.findAll({
         attributes:['id','name','totalExpense'],
+        order:[['totalExpense','DESC']]
     });
     
     res.status(200).json(leaderboardofUsers);
