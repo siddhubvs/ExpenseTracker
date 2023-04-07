@@ -53,6 +53,7 @@ async function login(req,res,next){
         }
         }).catch(error=>{res.status(500).json({message:error})})
 }
+
 module.exports={
     signup,
     tokengenerator,

@@ -28,3 +28,8 @@ async function login(e){
     }
 
 }
+var forgot=document.getElementById('forgot');
+
+forgot.addEventListener('click',async()=>{
+    window.location.href="../Forgot/forgot.html";
+})

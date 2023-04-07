@@ -22,6 +22,8 @@ const purchaseRoutes=require('./routes/purchase');
 
 const premiumRoutes=require('./routes/premium');
 
+const passwordRoutes=require('./routes/password');
+
 app.use(cors());
 
 app.use(bodyparser.json({extended:false}))
@@ -33,6 +35,8 @@ app.use('/expense',expenseRoutes);
 app.use('/purchase',purchaseRoutes);
 
 app.use('/premium',premiumRoutes);
+
+app.use('/password',passwordRoutes);
 User.hasMany(Expense);
 
 Expense.belongsTo(User);
