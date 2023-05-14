@@ -29,6 +29,6 @@ Note: Ensure that you have Node.js and a supported database (MySQL) installed be
 
 - [bcrypt.js] - For user authentication and authorization.
 - [Express] - For building the web application framework.
-- [Sequelize] - For interacting with the MySql database.
+- [Sequelize] - For interacting with the MySQL database.
 
 
