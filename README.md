@@ -14,9 +14,9 @@ Expense Tracker is a web application that helps you track and manage your expens
 1. Clone the repository: `git clone https://github.com/siddhubvs/ExpenseTracker`
 2. Install dependencies: `npm install`
 3. Start the application: `npm start`
-4. Access the application: Open your web browser and visit `http://localhost:3000`.
+4. Access the application: Open your web browser and visit `http://localhost:4000`.
 
-Note: Ensure that you have Node.js and a supported database (e.g., MongoDB, MySQL) installed before proceeding.
+Note: Ensure that you have Node.js and a supported database (MySQL) installed before proceeding.
 
 ## Usage
 
